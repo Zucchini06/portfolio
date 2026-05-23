@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赵知涵 · 产品项目作品集</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: #f0f2f5;
+  color: #1a1a2e;
+  line-height: 1.6;
+  padding: 40px 20px;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: 16px;
+  padding: 36px 40px 32px;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.header h1 { font-size: 28px; font-weight: 700; letter-spacing: 2px; }
+.header .sub { font-size: 14px; opacity: 0.8; margin-top: 4px; }
+.header .desc { font-size: 13px; opacity: 0.65; margin-top: 10px; line-height: 1.7; max-width: 560px; }
+.project-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom: 18px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.project-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+.card-body { padding: 24px 28px; }
+.card-title {
+  font-size: 16px; font-weight: 700; color: #0f3460;
+  display: flex; align-items: center; gap: 10px;
+}
+.card-tag {
+  font-size: 10px; background: #eef2ff; color: #0f3460;
+  padding: 2px 10px; border-radius: 10px; font-weight: 500;
+}
+.card-desc { font-size: 13px; color: #555; margin-top: 6px; line-height: 1.7; }
+.card-links { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
+.card-links a {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; padding: 7px 16px;
+  border-radius: 8px; text-decoration: none; transition: all 0.15s;
+}
+.link-primary { background: #0f3460; color: #fff; }
+.link-primary:hover { background: #16213e; }
+.link-outline { border: 1px solid #cbd5e1; color: #475569; }
+.link-outline:hover { background: #f1f5f9; }
+.footer {
+  text-align: center; font-size: 12px; color: #94a3b8;
+  margin-top: 32px; padding-bottom: 20px;
+}
+@media (max-width: 640px) {
+  body { padding: 20px 12px; }
+  .header { padding: 24px 20px; }
+  .card-body { padding: 18px 20px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>赵知涵</h1>
+    <div class="sub">产品经理实习 · 西北农林科技大学 2028 届</div>
+    <div class="desc">以下是独立完成的 3 个完整产品项目，覆盖用户调研、竞品分析、PRD 撰写、高保真原型到数据指标体系全流程。每个项目均包含完整 PRD 文档与可交互 HTML 原型，可直接点击体验。</div>
+  </div>
+
+  <div class="project-card">
+    <div class="card-body">
+      <div class="card-title">
+        不背单词 · 复习体验优化与智能断点续学方案
+        <span class="card-tag">2026.05</span>
+      </div>
+      <div class="card-desc">
+        针对不背单词「复习模式单一」和「中断后单词堆积回归门槛高」两大痛点，提出多样化复习模式（限时选择题卡/沉浸式拼写/听音辨义）与智能断点续学机制，输出完整 PRD 与可交互 HTML 原型。
+      </div>
+      <div class="card-links">
+        <a href="不背单词-产品策划.html" class="link-primary" target="_blank"><i class="fa fa-file-text-o"></i> PRD + 交互原型</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="card-body">
+      <div class="card-title">
+        非技术用户问卷数据分析门槛高的解决方案
+        <span class="card-tag">2025.12 – 2026.03</span>
+      </div>
+      <div class="card-desc">
+        从手动处理 316 份问卷的痛点出发，定位 AI 自动归类与交叉分析为核心方向。输出完整 PRD、Figma 高保真原型及可交互 HTML 原型（含真实 CSV 解析、交叉分析计算、动态图表渲染）。
+      </div>
+      <div class="card-links">
+        <a href="问卷智析-项目流程.html" class="link-primary" target="_blank"><i class="fa fa-file-text-o"></i> 完整项目流程</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="card-body">
+      <div class="card-title">
+        小红书收藏夹内容利用率的解决方案
+        <span class="card-tag">2026.05</span>
+      </div>
+      <div class="card-desc">
+        针对小红书「收藏即吃灰」问题，用 Claude 辅助分析用户访谈与 App Store 评论，提出「智能归类 + 定期唤醒」策略，输出包含完整信息架构与交互细节的 PRD 文档。
+      </div>
+      <div class="card-links">
+        <a href="小红书收藏夹PRD.html" class="link-primary" target="_blank"><i class="fa fa-file-text-o"></i> PRD 文档</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    赵知涵 · 183-5021-3086 · 3029879256@qq.com
+  </div>
+
+</div>
+</body>
+</html>
