@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>问卷智析 · 产品策划全案</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: #f0f4f8;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+/* ====== TOP BAR ====== */
+.topbar {
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.topbar-left { display: flex; align-items: center; gap: 24px; }
+.logo {
+  font-weight: 700; font-size: 17px; color: #059669;
+  display: flex; align-items: center; gap: 8px;
+}
+.logo .dot {
+  width: 28px; height: 28px; background: #059669;
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; color: #fff; font-size: 14px;
+}
+.topbar-right { font-size: 13px; color: #64748b; }
+
+/* ====== TAB NAV ====== */
+.tab-nav {
+  display: flex;
+  gap: 0;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 32px;
+}
+.tab-nav .tab {
+  padding: 14px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  user-select: none;
+}
+.tab-nav .tab:hover { color: #059669; }
+.tab-nav .tab.active {
+  color: #059669;
+  border-bottom-color: #059669;
+}
+
+/* ====== CONTENT ====== */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ====== CONTAINER ====== */
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+
+/* ====== BUTTONS ====== */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 20px; border-radius: 8px; font-size: 13px;
+  font-weight: 600; border: none; cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-primary { background: #059669; color: #fff; }
+.btn-primary:hover { background: #047857; }
+.btn-outline { background: transparent; color: #475569; border: 1px solid #cbd5e1; }
+.btn-outline:hover { background: #f1f5f9; }
+.btn-ghost { background: transparent; color: #64748b; padding: 6px 12px; }
+.btn-ghost:hover { background: #f1f5f9; border-radius: 6px; }
+.btn-sm { padding: 6px 14px; font-size: 12px; }
+.btn-green-outline { background: transparent; color: #059669; border: 1px solid #059669; }
+.btn-green-outline:hover { background: #f0fdf4; }
+
+/* ====== CARD ====== */
+.card {
+  background: #fff; border-radius: 12px; border: 1px solid #e2e8f0;
+  padding: 24px 28px; margin-bottom: 16px;
+}
+.card-title {
+  font-size: 15px; font-weight: 600; margin-bottom: 12px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.tag {
+  display: inline-block; font-size: 11px; padding: 2px 10px;
+  border-radius: 10px; font-weight: 500;
+}
+.tag-green { background: #d1fae5; color: #065f46; }
+.tag-blue { background: #dbeafe; color: #1e40af; }
+.tag-yellow { background: #fef3c7; color: #92400e; }
+.tag-gray { background: #f1f5f9; color: #475569; }
+
+/* ====== REPORT STYLES ====== */
+h1.doc-title { font-size: 26px; font-weight: 700; margin-bottom: 2px; }
+.doc-sub { color: #888; font-size: 13px; margin-bottom: 28px; }
+.doc-h2 {
+  font-size: 17px; font-weight: 700; margin-top: 32px;
+  margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #1a1a2e;
+}
+.doc-h3 { font-size: 14px; font-weight: 600; margin-top: 18px; margin-bottom: 6px; color: #0f3460; }
+.doc-h4 { font-size: 13.5px; font-weight: 600; margin-top: 12px; margin-bottom: 4px; }
+.doc-p, .doc-li { font-size: 13.5px; color: #333; margin-bottom: 6px; }
+.doc-ul { padding-left: 18px; margin-bottom: 8px; }
+.doc-li { margin-bottom: 4px; }
+.doc-table {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0 14px;
+}
+.doc-table th {
+  background: #1a1a2e; color: #fff; padding: 8px 12px;
+  text-align: left; font-weight: 600;
+}
+.doc-table td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+.doc-table tr:last-child td { border-bottom: none; }
+.prio-p0 {
+  display: inline-block; background: #fce4e4; color: #c62828;
+  font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 4px;
+}
+.prio-p1 {
+  display: inline-block; background: #fff3e0; color: #e65100;
+  font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 4px;
+}
+.prio-p2 {
+  display: inline-block; background: #e8f5e9; color: #2e7d32;
+  font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 4px;
+}
+.flow-box {
+  background: #f8f9ff; border-left: 4px solid #0f3460;
+  padding: 14px 18px; border-radius: 6px; margin: 8px 0 14px;
+  font-size: 13px; line-height: 1.8;
+}
+.flow-box em { color: #0f3460; font-style: normal; font-weight: 600; }
+.highlight { background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+.card-body { font-size: 13.5px; color: #333; line-height: 1.7; }
+.card-body p { margin-bottom: 8px; }
+.card-body ul { padding-left: 18px; margin-bottom: 8px; }
+.card-body li { margin-bottom: 4px; }
+
+/* ====== PROTOTYPE PAGES ====== */
+.p-page { display: none; }
+.p-page.active { display: block; }
+
+/* breadcrumb */
+.bread {
+  display: flex; gap: 6px; font-size: 12px; color: #94a3b8; margin-bottom: 16px;
+}
+.bread span { cursor: pointer; }
+.bread span:hover { color: #059669; }
+.bread .curr { color: #059669; font-weight: 600; }
+
+/* upload */
+.upload-zone {
+  border: 2px dashed #cbd5e1; border-radius: 12px; padding: 48px 24px;
+  text-align: center; cursor: pointer; transition: all 0.2s; background: #fafbfc;
+}
+.upload-zone:hover { border-color: #059669; background: #f0fdf4; }
+.upload-zone .icon { font-size: 36px; margin-bottom: 8px; color: #94a3b8; }
+.upload-zone .main-text { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.upload-zone .sub-text { font-size: 13px; color: #94a3b8; }
+.uploaded-status {
+  display: none; padding: 12px 16px; background: #f0fdf4;
+  border: 1px solid #bbf7d0; border-radius: 8px; font-size: 13px;
+  color: #065f46; margin-top: 12px; align-items: center; gap: 8px;
+}
+.uploaded-status.show { display: flex; }
+.col-map { margin-top: 16px; display: none; }
+.col-map.show { display: block; }
+.col-row {
+  display: flex; align-items: center; padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9; font-size: 13px;
+}
+.col-row .col-name { width: 120px; font-weight: 500; }
+.col-row .col-type select {
+  padding: 4px 10px; border: 1px solid #cbd5e1;
+  border-radius: 6px; font-size: 12px; background: #fff;
+}
+.col-row .col-preview { margin-left: 16px; color: #94a3b8; font-size: 12px; }
+
+/* home */
+.home-header {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 20px;
+}
+.home-header h1 { font-size: 22px; font-weight: 700; }
+.project-row {
+  display: flex; align-items: center; padding: 16px 0;
+  border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.1s;
+}
+.project-row:hover { background: #f8fafc; margin: 0 -28px; padding: 16px 28px; border-radius: 8px; }
+.project-row:last-child { border-bottom: none; }
+.project-info { flex: 1; }
+.project-info .name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.project-info .meta { font-size: 12px; color: #94a3b8; }
+.project-status { text-align: right; }
+.project-status .date { font-size: 12px; color: #94a3b8; }
+
+/* AI classify */
+.category-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;
+}
+.category-card {
+  background: #fff; border: 1px solid #e2e8f0;
+  border-radius: 10px; padding: 16px; transition: all 0.15s;
+}
+.category-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.category-card .cat-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+}
+.category-card .cat-name { font-size: 14px; font-weight: 600; }
+.category-card .cat-count { font-size: 12px; color: #94a3b8; }
+.category-card .sample-item {
+  font-size: 12px; color: #64748b; padding: 4px 0;
+  border-bottom: 1px solid #f8fafc; display: flex; align-items: center; gap: 6px;
+}
+.category-card .sample-item:last-child { border-bottom: none; }
+.confidence { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
+.conf-high { background: #10b981; }
+.conf-mid { background: #f59e0b; }
+.conf-low { background: #ef4444; }
+
+/* cross analysis */
+.cross-controls {
+  display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 16px;
+}
+.cross-controls .field { display: flex; flex-direction: column; gap: 4px; }
+.cross-controls .field label { font-size: 12px; color: #64748b; font-weight: 500; }
+.cross-controls .field select {
+  padding: 8px 12px; border: 1px solid #cbd5e1;
+  border-radius: 8px; font-size: 13px; background: #fff; min-width: 120px;
+}
+.cross-swap { font-size: 20px; color: #94a3b8; cursor: pointer; padding: 4px 8px; user-select: none; }
+.cross-swap:hover { color: #059669; }
+.chart-area {
+  background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+  padding: 24px; min-height: 260px;
+}
+.chart-area .chart-title {
+  font-size: 14px; font-weight: 600; margin-bottom: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.chart-tabs { display: flex; gap: 4px; }
+.chart-tab {
+  padding: 4px 12px; border-radius: 6px; font-size: 12px;
+  cursor: pointer; color: #64748b; border: 1px solid #e2e8f0; background: #fff;
+}
+.chart-tab.active { background: #059669; color: #fff; border-color: #059669; }
+.bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 200px; padding-top: 16px; }
+.bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+.bar-stack { width: 32px; border-radius: 4px 4px 0 0; min-height: 4px; }
+.bar-label { font-size: 11px; color: #64748b; margin-top: 6px; }
+
+/* report preview */
+.report-header {
+  text-align: center; padding: 24px 0 16px;
+  border-bottom: 2px solid #e2e8f0; margin-bottom: 24px;
+}
+.report-header h1 { font-size: 20px; font-weight: 700; }
+.report-header .meta { font-size: 13px; color: #64748b; margin-top: 4px; }
+.report-section { margin-bottom: 28px; }
+.report-section h3 {
+  font-size: 15px; font-weight: 600; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.report-section h3 .num {
+  width: 24px; height: 24px; background: #059669; color: #fff;
+  border-radius: 50%; display: inline-flex; align-items: center;
+  justify-content: center; font-size: 12px;
+}
+.report-chart {
+  background: #f8fafc; border: 1px solid #e2e8f0;
+  border-radius: 8px; padding: 20px; margin-bottom: 12px;
+}
+.report-chart .rc-title { font-size: 13px; font-weight: 600; margin-bottom: 10px; color: #334155; }
+.report-table {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin: 8px 0;
+}
+.report-table th {
+  background: #f1f5f9; padding: 8px 12px; text-align: left;
+  font-weight: 600; color: #475569; font-size: 12px;
+}
+.report-table td { padding: 7px 12px; border-bottom: 1px solid #f1f5f9; }
+
+/* toast */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: #1e293b; color: #fff; padding: 10px 20px;
+  border-radius: 8px; font-size: 13px; opacity: 0;
+  transition: all 0.3s; pointer-events: none; z-index: 200;
+}
+.toast.show { opacity: 1; }
+
+@media (max-width: 640px) {
+  .topbar { padding: 0 16px; }
+  .tab-nav { padding: 0 16px; overflow-x: auto; }
+  .tab-nav .tab { padding: 12px 14px; font-size: 12px; white-space: nowrap; }
+  .container { padding: 16px; }
+  .category-grid { grid-template-columns: 1fr; }
+  .card { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====== TOP BAR ====== -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo"><span class="dot">Q</span> 问卷智析</div>
+  </div>
+  <div class="topbar-right">赵知涵 · 产品策划全案</div>
+</div>
+
+<!-- ====== TAB NAV ====== -->
+<div class="tab-nav">
+  <div class="tab active" onclick="switchTab('report')">需求报告</div>
+  <div class="tab" onclick="switchTab('prd')">PRD 文档</div>
+  <div class="tab" onclick="switchTab('prototype')">高保真原型</div>
+</div>
+
+<!-- ====== TOAST ====== -->
+<div class="toast" id="toast"></div>
+
+<!-- ================================================================================ -->
+<!-- TAB 1: 需求报告 -->
+<!-- ================================================================================ -->
+<div class="tab-content active" id="tab-report">
+<div class="container">
+
+<h1 class="doc-title">需求分析报告</h1>
+<div class="doc-sub">问卷智析 · 产品策划全案 ｜ 2025.12 – 2026.03 ｜ 赵知涵</div>
+
+<h2 class="doc-h2">一、项目背景</h2>
+<p class="doc-p">高校科研场景中，问卷调查是获取一手数据的主流手段。然而在对问卷数据进行处理分析时，普遍存在以下效率瓶颈：</p>
+<ul class="doc-ul">
+  <li class="doc-li"><strong>开放题处理效率低：</strong>文字类回答无法直接统计，需逐条阅读、人工编码归类，一份中大规模问卷（300+ 份）的开放题处理耗时通常在 10–15 小时以上</li>
+  <li class="doc-li"><strong>交叉分析操作繁琐：</strong>多维度交叉分析（如专业×态度、年级×满意度）需反复手动筛选、制作透视表，每新增一个维度线性的工作量叠加</li>
+  <li class="doc-li"><strong>工具门槛分化严重：</strong>问卷星擅长采集但分析能力弱，SPSS 功能全面但学习成本高，非技术背景用户难以高效使用</li>
+  <li class="doc-li"><strong>报告输出重复劳动：</strong>图表截图、排版、撰写结论多为手工重复操作，缺少"分析→报告"的一站式闭环</li>
+</ul>
+<p class="doc-p">在校期间处理 316 份问卷的亲身经历中，单人全流程耗时超 40 小时，其中开放题编码与交叉分析占比超过 70%。</p>
+
+<h2 class="doc-h2">二、用户调研</h2>
+<h3 class="doc-h3">2.1 深度访谈</h3>
+<p class="doc-p">对 5 个不同课题组（涵盖人文社科、农林、经管等领域）进行结构化访谈，核心发现：</p>
+<ul class="doc-ul">
+  <li class="doc-li"><strong>100%</strong> 受访课题组有问卷分析需求，<strong>80%</strong> 认为现有流程"耗时过长"</li>
+  <li class="doc-li">最耗时的环节排名：开放题归类（第 1）→ 交叉分析（第 2）→ 报告排版（第 3）</li>
+  <li class="doc-li">受访者对"AI 辅助归类"的接受度高，前提是结果可人工复核修正</li>
+  <li class="doc-li">多数用户问卷数据仅用一次（论文/报告），不愿花时间学习 SPSS 等专业工具</li>
+</ul>
+
+<h3 class="doc-h3">2.2 目标用户画像</h3>
+<p class="doc-p"><strong>身份：</strong>高校本科生 / 研究生 / 青年教师<br>
+<strong>技术背景：</strong>非计算机专业，Excel 基础水平<br>
+<strong>核心需求：</strong>"把我收集到的问卷快速变成能写在论文里的图表和结论"<br>
+<strong>痛点：</strong>会发问卷但不会分析，找别人帮忙成本高沟通累<br>
+<strong>使用场景：</strong>课程作业 / 毕业设计 / 课题研究中的问卷调查环节</p>
+
+<h2 class="doc-h2">三、竞品分析</h2>
+<table class="doc-table">
+  <tr><th style="width:20%">产品</th><th style="width:32%">优势</th><th style="width:32%">劣势</th><th style="width:16%">定位</th></tr>
+  <tr><td><strong>问卷星</strong></td><td>模板丰富、收集渠道多、免费版可用</td><td>分析功能基础，仅支持简单统计，无法做开放题归类</td><td>采集工具</td></tr>
+  <tr><td><strong>SPSS</strong></td><td>统计分析功能强大，业界标准</td><td>学习曲线陡峭、收费高、无法直接处理问卷导入</td><td>专业统计</td></tr>
+  <tr><td><strong>腾讯问卷</strong></td><td>免费、与问卷星功能相似、部分 AI 能力</td><td>AI 能力初级，交叉分析维度有限</td><td>轻量采集</td></tr>
+  <tr><td><strong>问卷智析</strong></td><td><span class="highlight">AI 自动归类 + 交叉分析 + 报告导出，覆盖问卷分析全流程</span></td><td>初期数据积累不足，AI 精度需持续优化</td><td>智能分析</td></tr>
+</table>
+<p class="doc-p"><strong>差异化结论：</strong>现有工具在"采集"和"专业统计"两端都有成熟产品，但在<strong>「采集后到统计前」的中间地带——自动化处理开放题、快速生成可用的交叉分析图表——存在明显市场空白</strong>。问卷智析瞄准的是这个"中间环节"。</p>
+
+<h2 class="doc-h2">四、产品定位</h2>
+<p class="doc-p"><strong>一句话定义：</strong>面向高校科研人员的 AI 智能问卷分析工具——上传问卷数据即可自动完成开放题归类与多维度交叉分析，一键导出可视化报告。</p>
+<ul class="doc-ul">
+  <li class="doc-li"><strong>核心价值：</strong>将问卷数据分析耗时从数十小时压缩至半天以内</li>
+  <li class="doc-li"><strong>使用方式：</strong>上传数据 → AI 自动分析 → 人工复核 → 生成报告</li>
+  <li class="doc-li"><strong>差异化壁垒：</strong>开放题语义自动聚类 + 多维度交叉分析一键生成</li>
+</ul>
+
+<h2 class="doc-h2">五、核心用户操作流程</h2>
+<p class="flow-box" style="text-align:center;font-size:14px;">
+上传问卷数据 → AI 自动归类开放题 → 选择维度进行交叉分析 → 调整/复核 → 生成可视化报告
+</p>
+
+<h2 class="doc-h2">六、核心衡量指标</h2>
+<ul class="doc-ul">
+  <li class="doc-li"><strong>效率指标：</strong>单份问卷分析耗时从 40 小时 → 半天以内（效率提升 80%+）</li>
+  <li class="doc-li"><strong>质量指标：</strong>AI 开放题分类准确率 ≥ 85%（人工可复核兜底）</li>
+  <li class="doc-li"><strong>用户指标：</strong>问卷分析完成率 ≥ 90%</li>
+  <li class="doc-li"><strong>满意度指标：</strong>用户净推荐值（NPS）≥ 40</li>
+</ul>
+
+</div>
+</div>
+
+<!-- ================================================================================ -->
+<!-- TAB 2: PRD -->
+<!-- ================================================================================ -->
+<div class="tab-content" id="tab-prd">
+<div class="container">
+
+<h1 class="doc-title">产品需求文档（PRD）</h1>
+<div class="doc-sub">v1.0 ｜ 2026.03 ｜ 赵知涵</div>
+
+<h2 class="doc-h2">一、项目概述</h2>
+<h3 class="doc-h3">1.1 产品范围</h3>
+<table class="doc-table">
+  <tr><th style="width:50%">包含（In Scope）</th><th style="width:50%">不包含（Out of Scope）</th></tr>
+  <tr><td>问卷数据导入（Excel/CSV/问卷星导出格式）</td><td>问卷设计与编辑（问卷创建不在本产品范围内）</td></tr>
+  <tr><td>开放题答案 AI 自动归类（带人工复核）</td><td>高级统计分析（回归分析、因子分析等）</td></tr>
+  <tr><td>多维度交叉分析（自定义维度组合）</td><td>问卷样本量与信效度计算</td></tr>
+  <tr><td>可视化报告预览与导出（PDF/图片/Word）</td><td>协作编辑与多人在线协同</td></tr>
+  <tr><td>历史项目管理与数据存档</td><td>移动端适配（初期仅支持桌面端 Web）</td></tr>
+</table>
+
+<h2 class="doc-h2">二、功能列表</h2>
+<table class="doc-table">
+  <tr><th style="width:8%">模块</th><th style="width:24%">功能</th><th style="width:44%">描述</th><th style="width:24%">优先级</th></tr>
+  <tr><td>数据导入</td><td>文件上传</td><td>支持拖拽/点击上传 Excel、CSV 格式问卷数据</td><td><span class="prio-p0">P0</span></td></tr>
+  <tr><td>数据导入</td><td>格式校验与映射</td><td>自动识别列类型（单选题/多选题/开放题/填空题），识别失败时提示用户手动标列</td><td><span class="prio-p0">P0</span></td></tr>
+  <tr><td>AI 归类</td><td>开放题自动聚类</td><td>对开放题答案进行语义相似度分析，自动聚合为若干类别并生成类别标签</td><td><span class="prio-p0">P0</span></td></tr>
+  <tr><td>AI 归类</td><td>人工复核与修正</td><td>展示每条答案的归类结果，支持手动拖拽调整类别、拆分/合并类别</td><td><span class="prio-p0">P0</span></td></tr>
+  <tr><td>AI 归类</td><td>置信度标识</td><td>AI 分类结果标注置信度（高/中/低），低置信度条目优先展示待人工确认</td><td><span class="prio-p1">P1</span></td></tr>
+  <tr><td>交叉分析</td><td>维度选择</td><td>用户选择分析维度（如性别×态度），系统自动生成交叉图表</td><td><span class="prio-p0">P0</span></td></tr>
+  <tr><td>交叉分析</td><td>图表类型切换</td><td>支持柱状图、堆叠图、百分比堆叠图等多视图切换</td><td><span class="prio-p1">P1</span></td></tr>
+  <tr><td>交叉分析</td><td>多维度组合分析</td><td>支持 3 个及以上维度组合生成复杂交叉分析</td><td><span class="prio-p2">P2</span></td></tr>
+  <tr><td>报告</td><td>报告预览</td><td>所见即所得的报告预览页，包含图表与简要文字结论</td><td><span class="prio-p0">P0</span></td></tr>
+  <tr><td>报告</td><td>导出</td><td>支持导出为 PDF / PNG / Word 格式</td><td><span class="prio-p1">P1</span></td></tr>
+  <tr><td>项目管理</td><td>项目列表与历史记录</td><td>查看以往所有项目，支持重命名、删除、复用到新项目</td><td><span class="prio-p1">P1</span></td></tr>
+  <tr><td>项目管理</td><td>草稿自动保存</td><td>分析过程中的所有操作自动保存，防止数据丢失</td><td><span class="prio-p2">P2</span></td></tr>
+</table>
+
+<h2 class="doc-h2">三、核心业务流程</h2>
+<div class="flow-box">
+<em>用户操作路径：</em><br>
+新建项目 → 上传问卷数据（Excel/CSV） → 系统识别列类型 → 用户确认/修正映射 →<br>
+进入 AI 归类页面 → 系统自动聚类 → 用户人工复核（调整/合并/拆分） → 确认归类结果 →<br>
+进入交叉分析页 → 选择维度 → 查看交叉图表 → 切换图表类型 → 进入报告预览 → 导出报告
+</div>
+
+<h3 class="doc-h3">异常流程</h3>
+<table class="doc-table">
+  <tr><th style="width:30%">异常场景</th><th style="width:42%">处理策略</th><th style="width:28%">优先级</th></tr>
+  <tr><td>上传文件格式不支持</td><td>提示支持的格式（.xlsx / .xls / .csv），并提供示例数据下载</td><td><span class="prio-p0">P0</span></td></tr>
+  <tr><td>AI 分类置信度普遍偏低（<60%）</td><td>提示用户可能为样本量过小或答案差异过大，建议人工检查</td><td><span class="prio-p1">P1</span></td></tr>
+  <tr><td>问卷中无开放题</td><td>跳过 AI 归类步骤，直接进入交叉分析</td><td><span class="prio-p0">P0</span></td></tr>
+  <tr><td>上传数据列数过多</td><td>告知检测到的题目数量，允许用户取消勾选不需要分析的列</td><td><span class="prio-p1">P1</span></td></tr>
+  <tr><td>网络中断/AI 分析超时</td><td>中断后保留已处理结果，支持断点续分析</td><td><span class="prio-p2">P2</span></td></tr>
+</table>
+
+<h2 class="doc-h2">四、功能详情</h2>
+
+<h3 class="doc-h3">4.1 项目创建与数据导入</h3>
+<p class="doc-p"><strong>入口：</strong>首页「新建项目」按钮</p>
+<p class="doc-p"><strong>流程描述：</strong>用户点击新建项目后进入上传页，支持拖拽或点击选择文件。上传完成后系统自动解析文件结构，展示列类型映射结果。用户确认无误后进入分析流程，若有识别异常可手动修正列类型。</p>
+
+<h3 class="doc-h3">4.2 AI 开放题归类</h3>
+<p class="doc-p"><strong>入口：</strong>数据导入完成后自动跳转</p>
+<p class="doc-p"><strong>流程描述：</strong>系统自动对每道开放题的答案进行语义聚类，生成类别标签并标注置信度。用户可在结果页中以"卡片"形式查看归类概览，展开后查看该类别下的所有原始回答。支持手动操作：将某条回答拖到其他类别、新建类别、合并两个类别、拆分内容不纯的类别。</p>
+
+<h3 class="doc-h3">4.3 交叉分析</h3>
+<p class="doc-p"><strong>入口：</strong>AI 归类完成后或数据导入完成后（无开放题时）跳转</p>
+<p class="doc-p"><strong>流程描述：</strong>用户选择分析维度（行×列），系统自动生成交叉分析图表。支持维度拖拽交换、图表类型切换。分析结果实时响应，每次维度变更均重新生成图表。</p>
+
+<h3 class="doc-h3">4.4 报告预览与导出</h3>
+<p class="doc-p"><strong>入口：</strong>交叉分析页面「查看报告」按钮</p>
+<p class="doc-p"><strong>流程描述：</strong>报告页面展示项目概览及所有已生成的交叉分析图表。用户可调整图表顺序、修改标题、添加文字备注。选择导出格式一键导出。</p>
+
+<h2 class="doc-h2">五、数据指标体系</h2>
+<table class="doc-table">
+  <tr><th style="width:20%">类别</th><th style="width:28%">指标</th><th style="width:52%">说明</th></tr>
+  <tr><td>用户行为</td><td>上传完成率</td><td>进入上传页的用户中成功完成上传的比例</td></tr>
+  <tr><td>用户行为</td><td>AI 归类复核率</td><td>用户对 AI 结果进行手动调整的比例（反映 AI 准确率）</td></tr>
+  <tr><td>用户行为</td><td>分析完成率</td><td>从上传到生成报告的全流程完成比例</td></tr>
+  <tr><td>AI 质量</td><td>分类准确率</td><td>AI 归类与人工最终结果的一致率（目标 ≥ 85%）</td></tr>
+  <tr><td>AI 质量</td><td>用户修正率</td><td>每道开放题平均人工调整次数（越低说明 AI 效果越好）</td></tr>
+  <tr><td>效率</td><td>单份分析耗时</td><td>用户从上传到导出报告的端到端耗时</td></tr>
+  <tr><td>业务</td><td>导出率</td><td>完成分析的用户中导出报告的比例</td></tr>
+  <tr><td>业务</td><td>次月留存率</td><td>次月再次使用产品的用户比例</td></tr>
+</table>
+
+</div>
+</div>
+
+<!-- ================================================================================ -->
+<!-- TAB 3: 高保真原型 -->
+<!-- ================================================================================ -->
+<div class="tab-content" id="tab-prototype">
+<div class="container">
+
+<!-- PAGE: Home -->
+<div class="p-page active" id="pp-home">
+  <div class="home-header">
+    <h1>我的项目</h1>
+    <button class="btn btn-primary" onclick="pGo('pp-upload')">＋ 新建项目</button>
+  </div>
+  <div class="card" style="padding:0 28px">
+    <div class="project-row" onclick="pGo('pp-classify')">
+      <div class="project-info">
+        <div class="name">大学生外卖消费行为调查</div>
+        <div class="meta">316 份问卷 ｜ 6 道开放题 ｜ 上次编辑 2026.03.15</div>
+      </div>
+      <div class="project-status">
+        <span class="tag tag-green">分析完成</span>
+        <div class="date" style="margin-top:4px">2026.03.15</div>
+      </div>
+    </div>
+    <div class="project-row" onclick="t('请先选择一个项目')">
+      <div class="project-info">
+        <div class="name">课程满意度调研</div>
+        <div class="meta">128 份问卷 ｜ 3 道开放题 ｜ 上次编辑 2026.01.20</div>
+      </div>
+      <div class="project-status">
+        <span class="tag tag-blue">待分析</span>
+        <div class="date" style="margin-top:4px">2026.01.20</div>
+      </div>
+    </div>
+    <div class="project-row" onclick="t('请先选择一个项目')">
+      <div class="project-info">
+        <div class="name">校园食堂满意度调查</div>
+        <div class="meta">245 份问卷 ｜ 4 道开放题 ｜ 上次编辑 2025.12.08</div>
+      </div>
+      <div class="project-status">
+        <span class="tag tag-green">分析完成</span>
+        <div class="date" style="margin-top:4px">2025.12.10</div>
+      </div>
+    </div>
+    <div class="project-row" onclick="t('请先选择一个项目')" style="border:none">
+      <div class="project-info">
+        <div class="name">学生宿舍满意度调研</div>
+        <div class="meta">189 份问卷 ｜ 2 道开放题 ｜ 上次编辑 2025.11.05</div>
+      </div>
+      <div class="project-status">
+        <span class="tag tag-yellow">分析中</span>
+        <div class="date" style="margin-top:4px">2025.11.10</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12px;color:#94a3b8;margin-top:8px">点击「大学生外卖消费行为调查」进入分析流程</p>
+</div>
+
+<!-- PAGE: Upload -->
+<div class="p-page" id="pp-upload">
+  <div class="bread">
+    <span onclick="pGo('pp-home')">我的项目</span> › <span class="curr">新建项目</span>
+  </div>
+  <div class="card">
+    <div class="card-title">上传问卷数据</div>
+    <div class="upload-zone" id="uz" onclick="simUpload()">
+      <div class="icon">📂</div>
+      <div class="main-text">点击或拖拽文件到此区域</div>
+      <div class="sub-text">支持 .xlsx、.xls、.csv 格式</div>
+      <div class="formats" style="font-size:12px;color:#94a3b8;margin-top:8px">每次限上传一个文件，最大 20MB</div>
+    </div>
+    <div class="uploaded-status" id="us">✅ 文件已上传：大学生外卖消费行为调查_数据.xlsx（316 条记录）</div>
+    <div class="col-map" id="cm">
+      <p style="font-size:13px;font-weight:600;margin-bottom:8px">列类型映射</p>
+      <div class="col-row"><span class="col-name">时间戳</span><span class="col-type"><select><option>忽略</option></select></span><span class="col-preview">2026-03-01 14:23 ...</span></div>
+      <div class="col-row"><span class="col-name">专业</span><span class="col-type"><select><option selected>单选题</option><option>多选题</option><option>开放题</option><option>填空题</option><option>忽略</option></select></span><span class="col-preview">计算机 / 经管 / 人文 ...</span></div>
+      <div class="col-row"><span class="col-name">年级</span><span class="col-type"><select><option selected>单选题</option><option>多选题</option><option>开放题</option><option>填空题</option><option>忽略</option></select></span><span class="col-preview">大一 / 大二 / 大三 ...</span></div>
+      <div class="col-row"><span class="col-name">平均每周点几次外卖</span><span class="col-type"><select><option selected>单选题</option><option>多选题</option><option>开放题</option><option>填空题</option><option>忽略</option></select></span><span class="col-preview">1-2次 / 3-5次 / 6次以上 ...</span></div>
+      <div class="col-row"><span class="col-name">外卖平台偏好</span><span class="col-type"><select><option>单选题</option><option selected>多选题</option><option>开放题</option><option>填空题</option><option>忽略</option></select></span><span class="col-preview">美团, 饿了么 ...</span></div>
+      <div class="col-row"><span class="col-name">选择外卖最重要的因素</span><span class="col-type"><select><option>单选题</option><option>多选题</option><option selected>开放题</option><option>填空题</option><option>忽略</option></select></span><span class="col-preview">"价格便宜" "配送快" "卫生" ...</span></div>
+      <div class="col-row"><span class="col-name">外卖体验中最不满意的</span><span class="col-type"><select><option>单选题</option><option>多选题</option><option selected>开放题</option><option>填空题</option><option>忽略</option></select></span><span class="col-preview">"配送太慢" "经常洒汤" ...</span></div>
+      <div class="col-row"><span class="col-name">对食堂改进的建议</span><span class="col-type"><select><option>单选题</option><option>多选题</option><option selected>开放题</option><option>填空题</option><option>忽略</option></select></span><span class="col-preview">"菜品更新太慢" "价格贵" ...</span></div>
+      <div style="margin-top:12px;text-align:right">
+        <button class="btn btn-primary btn-sm" onclick="pGo('pp-classify')">确认，开始分析</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: Classify -->
+<div class="p-page" id="pp-classify">
+  <div class="bread">
+    <span onclick="pGo('pp-home')">我的项目</span> › <span onclick="pGo('pp-upload')">上传数据</span> › <span class="curr">AI 归类</span>
+  </div>
+  <div class="card">
+    <div class="card-title">
+      <span>开放题 AI 自动归类</span>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-outline btn-sm" onclick="t('已刷新 AI 归类结果')">重新分析</button>
+        <button class="btn btn-primary btn-sm" onclick="pGo('pp-cross')">确认归类，进入交叉分析 →</button>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:13px;color:#64748b">
+      <span>已处理 3 道开放题</span>
+      <div style="flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden"><div style="height:100%;background:#059669;border-radius:3px;width:100%"></div></div>
+      <span>100%</span>
+    </div>
+
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+      <span class="tag tag-green" style="cursor:pointer;font-size:12px;padding:4px 14px" onclick="switchQ(0)">选择外卖最重要的因素</span>
+      <span class="tag tag-blue" style="cursor:pointer;font-size:12px;padding:4px 14px" onclick="switchQ(1)">外卖体验中最不满意的</span>
+      <span class="tag tag-blue" style="cursor:pointer;font-size:12px;padding:4px 14px" onclick="switchQ(2)">对食堂改进的建议</span>
+    </div>
+
+    <div id="qContent">
+      <div class="category-grid">
+        <div class="category-card"><div class="cat-header"><span class="cat-name">🍔 价格因素</span><span class="cat-count"><span class="confidence conf-high"></span>高 · 86 条</span></div><div class="sample-item">价格便宜实惠</div><div class="sample-item">性价比高</div><div class="sample-item">有优惠券和满减活动</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 86 条')">查看全部 86 条 →</div></div>
+        <div class="category-card"><div class="cat-header"><span class="cat-name">🚚 配送速度</span><span class="cat-count"><span class="confidence conf-high"></span>高 · 74 条</span></div><div class="sample-item">配送速度快</div><div class="sample-item">送达准时</div><div class="sample-item">配送时间短</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 74 条')">查看全部 74 条 →</div></div>
+        <div class="category-card"><div class="cat-header"><span class="cat-name">🧹 卫生与安全</span><span class="cat-count"><span class="confidence conf-mid"></span>中 · 62 条</span></div><div class="sample-item">卫生干净</div><div class="sample-item">食品安全有保障</div><div class="sample-item">包装干净</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 62 条')">查看全部 62 条 →</div></div>
+        <div class="category-card"><div class="cat-header"><span class="cat-name">🍳 口味与种类</span><span class="cat-count"><span class="confidence conf-mid"></span>中 · 58 条</span></div><div class="sample-item">味道好</div><div class="sample-item">品种多样</div><div class="sample-item">口味选择多</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 58 条')">查看全部 58 条 →</div></div>
+        <div class="category-card"><div class="cat-header"><span class="cat-name">📦 包装与份量</span><span class="cat-count"><span class="confidence conf-low"></span>低 · 24 条</span></div><div class="sample-item">份量足够</div><div class="sample-item">包装严实不洒</div><div class="sample-item">包装精致</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 24 条')">查看全部 24 条 →</div></div>
+        <div class="category-card" style="border:2px dashed #cbd5e1;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="t('新建类别')"><span style="color:#94a3b8;font-size:13px">＋ 新建类别</span></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <button class="btn btn-ghost btn-sm" onclick="t('已合并选中的类别')">合并选中类别</button>
+      <button class="btn btn-ghost btn-sm" onclick="t('已拆分当前类别')">拆分类别</button>
+      <button class="btn btn-ghost btn-sm" onclick="t('已导出归类结果')">导出归类结果</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: Cross Analysis -->
+<div class="p-page" id="pp-cross">
+  <div class="bread">
+    <span onclick="pGo('pp-home')">我的项目</span> › <span onclick="pGo('pp-upload')">上传数据</span> › <span onclick="pGo('pp-classify')">AI 归类</span> › <span class="curr">交叉分析</span>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <h2 style="font-size:17px;font-weight:700">交叉分析</h2>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-outline btn-sm" onclick="t('分析已保存')">保存</button>
+      <button class="btn btn-primary btn-sm" onclick="pGo('pp-report')">查看报告 →</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">维度选择</div>
+    <div class="cross-controls">
+      <div class="field"><label>行（X 轴）</label><select id="xD" onchange="updChart()"><option value="grade">年级</option><option value="major" selected>专业</option><option value="gender">性别</option><option value="freq">外卖频率</option></select></div>
+      <span class="cross-swap" onclick="swDims()">⇄</span>
+      <div class="field"><label>列（Y 轴 / 分组）</label><select id="yD" onchange="updChart()"><option value="price" selected>选择外卖最重要的因素（归类）</option><option value="bad">外卖体验中最不满意的（归类）</option><option value="canteen">对食堂改进的建议（归类）</option></select></div>
+      <div class="field"><label>图表类型</label><select><option>分组柱状图</option><option>堆叠柱状图</option><option>百分比堆叠图</option></select></div>
+    </div>
+
+    <div class="chart-area">
+      <div class="chart-title">
+        <span id="cTitle">专业 × 选择外卖最重要的因素 交叉分析</span>
+        <div class="chart-tabs">
+          <span class="chart-tab active" onclick="t('切换图表类型')">柱状图</span>
+          <span class="chart-tab" onclick="t('切换图表类型')">堆叠图</span>
+          <span class="chart-tab" onclick="t('切换图表类型')">表格</span>
+        </div>
+      </div>
+      <div class="bar-chart">
+        <div class="bar-group"><div style="display:flex;gap:2px;align-items:flex-end;height:160px"><div class="bar-stack" style="height:110px;background:#059669"></div><div class="bar-stack" style="height:78px;background:#34d399"></div><div class="bar-stack" style="height:52px;background:#a7f3d0"></div><div class="bar-stack" style="height:32px;background:#d1fae5"></div></div><div class="bar-label">计算机</div><span style="font-size:10px;color:#94a3b8">100人</span></div>
+        <div class="bar-group"><div style="display:flex;gap:2px;align-items:flex-end;height:160px"><div class="bar-stack" style="height:72px;background:#059669"></div><div class="bar-stack" style="height:92px;background:#34d399"></div><div class="bar-stack" style="height:60px;background:#a7f3d0"></div><div class="bar-stack" style="height:44px;background:#d1fae5"></div></div><div class="bar-label">经管</div><span style="font-size:10px;color:#94a3b8">92人</span></div>
+        <div class="bar-group"><div style="display:flex;gap:2px;align-items:flex-end;height:160px"><div class="bar-stack" style="height:44px;background:#059669"></div><div class="bar-stack" style="height:58px;background:#34d399"></div><div class="bar-stack" style="height:80px;background:#a7f3d0"></div><div class="bar-stack" style="height:28px;background:#d1fae5"></div></div><div class="bar-label">人文</div><span style="font-size:10px;color:#94a3b8">68人</span></div>
+        <div class="bar-group"><div style="display:flex;gap:2px;align-items:flex-end;height:160px"><div class="bar-stack" style="height:24px;background:#059669"></div><div class="bar-stack" style="height:34px;background:#34d399"></div><div class="bar-stack" style="height:44px;background:#a7f3d0"></div><div class="bar-stack" style="height:38px;background:#d1fae5"></div></div><div class="bar-label">农林</div><span style="font-size:10px;color:#94a3b8">44人</span></div>
+      </div>
+      <div style="display:flex;gap:14px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+        <span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#059669;border-radius:2px;display:inline-block"></span>价格因素</span>
+        <span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#34d399;border-radius:2px;display:inline-block"></span>配送速度</span>
+        <span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#a7f3d0;border-radius:2px;display:inline-block"></span>卫生安全</span>
+        <span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#d1fae5;border-radius:2px;display:inline-block"></span>口味种类</span>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#94a3b8;margin-top:8px;text-align:center">图表数据为模拟展示</p>
+  </div>
+</div>
+
+<!-- PAGE: Report -->
+<div class="p-page" id="pp-report">
+  <div class="bread">
+    <span onclick="pGo('pp-home')">我的项目</span> › <span onclick="pGo('pp-cross')">交叉分析</span> › <span class="curr">报告预览</span>
+  </div>
+
+  <div style="display:flex;gap:10px;justify-content:center;margin-bottom:12px">
+    <button class="btn btn-primary" onclick="t('报告导出中…')">📥 导出报告</button>
+    <button class="btn btn-outline" onclick="t('已保存为草稿')">💾 保存草稿</button>
+  </div>
+
+  <div class="card" style="padding:36px 40px">
+    <div class="report-header">
+      <h1>大学生外卖消费行为调查报告</h1>
+      <div class="meta">调查时间：2026.03 ｜ 有效问卷：316 份 ｜ 调查对象：在校大学生</div>
+    </div>
+
+    <div class="report-section">
+      <h3><span class="num">1</span>样本概况</h3>
+      <table class="report-table">
+        <tr><th style="width:30%">维度</th><th>分布</th></tr>
+        <tr><td>性别</td><td>男 42% · 女 58%</td></tr>
+        <tr><td>专业</td><td>计算机 32% · 经管 29% · 人文 21% · 农林 14% · 其他 4%</td></tr>
+        <tr><td>年级</td><td>大一 28% · 大二 35% · 大三 24% · 大四 13%</td></tr>
+        <tr><td>外卖频率</td><td>每周 1-2 次 44% · 3-5 次 35% · 6 次以上 21%</td></tr>
+      </table>
+    </div>
+
+    <div class="report-section">
+      <h3><span class="num">2</span>选择外卖最重要的因素</h3>
+      <div class="report-chart">
+        <div class="rc-title">AI 归类结果分布</div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center">
+          <div style="text-align:center;padding:8px 16px"><div style="font-size:24px;font-weight:700;color:#059669">86</div><div style="font-size:12px;color:#64748b">价格因素</div></div>
+          <div style="text-align:center;padding:8px 16px"><div style="font-size:24px;font-weight:700;color:#34d399">74</div><div style="font-size:12px;color:#64748b">配送速度</div></div>
+          <div style="text-align:center;padding:8px 16px"><div style="font-size:24px;font-weight:700;color:#6ee7b7">62</div><div style="font-size:12px;color:#64748b">卫生安全</div></div>
+          <div style="text-align:center;padding:8px 16px"><div style="font-size:24px;font-weight:700;color:#a7f3d0">58</div><div style="font-size:12px;color:#64748b">口味种类</div></div>
+          <div style="text-align:center;padding:8px 16px"><div style="font-size:24px;font-weight:700;color:#d1fae5">24</div><div style="font-size:12px;color:#64748b">包装份量</div></div>
+        </div>
+        <p style="font-size:12px;color:#64748b;text-align:center;margin-top:8px">"价格因素"是学生最关注的方面，其次是配送速度</p>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <h3><span class="num">3</span>专业 × 选择因素 交叉分析</h3>
+      <div class="report-chart">
+        <div class="rc-title">不同专业学生的关注点差异</div>
+        <div class="bar-chart" style="height:140px">
+          <div class="bar-group"><div style="display:flex;gap:2px;align-items:flex-end;height:120px"><div class="bar-stack" style="height:80px;background:#059669"></div><div class="bar-stack" style="height:58px;background:#34d399"></div><div class="bar-stack" style="height:36px;background:#a7f3d0"></div><div class="bar-stack" style="height:22px;background:#d1fae5"></div></div><div class="bar-label">计算机</div></div>
+          <div class="bar-group"><div style="display:flex;gap:2px;align-items:flex-end;height:120px"><div class="bar-stack" style="height:52px;background:#059669"></div><div class="bar-stack" style="height:68px;background:#34d399"></div><div class="bar-stack" style="height:42px;background:#a7f3d0"></div><div class="bar-stack" style="height:30px;background:#d1fae5"></div></div><div class="bar-label">经管</div></div>
+          <div class="bar-group"><div style="display:flex;gap:2px;align-items:flex-end;height:120px"><div class="bar-stack" style="height:30px;background:#059669"></div><div class="bar-stack" style="height:42px;background:#34d399"></div><div class="bar-stack" style="height:56px;background:#a7f3d0"></div><div class="bar-stack" style="height:22px;background:#d1fae5"></div></div><div class="bar-label">人文</div></div>
+          <div class="bar-group"><div style="display:flex;gap:2px;align-items:flex-end;height:120px"><div class="bar-stack" style="height:16px;background:#059669"></div><div class="bar-stack" style="height:24px;background:#34d399"></div><div class="bar-stack" style="height:32px;background:#a7f3d0"></div><div class="bar-stack" style="height:26px;background:#d1fae5"></div></div><div class="bar-label">农林</div></div>
+        </div>
+        <p style="font-size:12px;color:#64748b;margin-top:4px">🔍 <strong>发现：</strong>理工科更关注价格，人文社科更关注卫生安全，配送速度是各专业均高度重视的因素</p>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <h3><span class="num">4</span>核心结论</h3>
+      <ul style="font-size:13px;padding-left:18px;color:#334155">
+        <li><strong>价格敏感型消费为主：</strong>86 人（27%）将价格因素放在首位</li>
+        <li><strong>配送体验是共性痛点：</strong>74 人（23%）关注配送速度，"配送太慢"同时也是不满意的主要来源</li>
+        <li><strong>专业差异明显：</strong>计算机专业学生价格敏感度最高，人文专业学生更关注食品卫生</li>
+        <li><strong>食堂改进方向：</strong>学生对食堂的主要诉求是"菜品更新"和"价格下调"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;justify-content:center;margin-top:12px">
+    <button class="btn btn-primary" onclick="t('报告导出中…')">📥 导出报告</button>
+    <button class="btn btn-outline" onclick="t('已保存为草稿')">💾 保存草稿</button>
+    <button class="btn btn-ghost" onclick="pGo('pp-cross')">← 返回交叉分析</button>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  document.querySelector('.tab-nav .tab:nth-child(' + (id === 'report' ? 1 : id === 'prd' ? 2 : 3) + ')').classList.add('active');
+}
+
+function t(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+function pGo(id) {
+  document.querySelectorAll('.p-page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function simUpload() {
+  document.getElementById('us').classList.add('show');
+  document.getElementById('cm').classList.add('show');
+  document.getElementById('uz').style.display = 'none';
+}
+
+function swDims() {
+  const x = document.getElementById('xD'), y = document.getElementById('yD');
+  const t = x.value; x.value = y.value; y.value = t;
+  updChart();
+}
+function updChart() {
+  const x = document.getElementById('xD'), y = document.getElementById('yD');
+  document.getElementById('cTitle').textContent = x.options[x.selectedIndex].text + ' × ' + y.options[y.selectedIndex].text + ' 交叉分析';
+  t('交叉图表已更新');
+}
+
+const qData = [
+  `<div class="category-grid">
+    <div class="category-card"><div class="cat-header"><span class="cat-name">🍔 价格因素</span><span class="cat-count"><span class="confidence conf-high"></span>高 · 86 条</span></div><div class="sample-item">价格便宜实惠</div><div class="sample-item">性价比高</div><div class="sample-item">有优惠券和满减活动</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 86 条')">查看全部 86 条 →</div></div>
+    <div class="category-card"><div class="cat-header"><span class="cat-name">🚚 配送速度</span><span class="cat-count"><span class="confidence conf-high"></span>高 · 74 条</span></div><div class="sample-item">配送速度快</div><div class="sample-item">送达准时</div><div class="sample-item">配送时间短</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 74 条')">查看全部 74 条 →</div></div>
+    <div class="category-card"><div class="cat-header"><span class="cat-name">🧹 卫生与安全</span><span class="cat-count"><span class="confidence conf-mid"></span>中 · 62 条</span></div><div class="sample-item">卫生干净</div><div class="sample-item">食品安全有保障</div><div class="sample-item">包装干净</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 62 条')">查看全部 62 条 →</div></div>
+    <div class="category-card"><div class="cat-header"><span class="cat-name">🍳 口味与种类</span><span class="cat-count"><span class="confidence conf-mid"></span>中 · 58 条</span></div><div class="sample-item">味道好</div><div class="sample-item">品种多样</div><div class="sample-item">口味选择多</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 58 条')">查看全部 58 条 →</div></div>
+    <div class="category-card"><div class="cat-header"><span class="cat-name">📦 包装与份量</span><span class="cat-count"><span class="confidence conf-low"></span>低 · 24 条</span></div><div class="sample-item">份量足够</div><div class="sample-item">包装严实不洒</div><div class="sample-item">包装精致</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 24 条')">查看全部 24 条 →</div></div>
+    <div class="category-card" style="border:2px dashed #cbd5e1;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="t('新建类别')"><span style="color:#94a3b8;font-size:13px">＋ 新建类别</span></div>
+  </div>`,
+  `<div class="category-grid">
+    <div class="category-card"><div class="cat-header"><span class="cat-name">⏱ 配送时效问题</span><span class="cat-count"><span class="confidence conf-high"></span>高 · 98 条</span></div><div class="sample-item">配送太慢了</div><div class="sample-item">经常超时</div><div class="sample-item">等很久才到</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 98 条')">查看全部 98 条 →</div></div>
+    <div class="category-card"><div class="cat-header"><span class="cat-name">🥘 餐品质量问题</span><span class="cat-count"><span class="confidence conf-high"></span>高 · 76 条</span></div><div class="sample-item">经常洒汤</div><div class="sample-item">包装破损</div><div class="sample-item">送到已经凉了</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 76 条')">查看全部 76 条 →</div></div>
+    <div class="category-card"><div class="cat-header"><span class="cat-name">💰 价格问题</span><span class="cat-count"><span class="confidence conf-mid"></span>中 · 54 条</span></div><div class="sample-item">配送费太贵</div><div class="sample-item">价格越来越贵</div><div class="sample-item">优惠少了</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 54 条')">查看全部 54 条 →</div></div>
+    <div class="category-card"><div class="cat-header"><span class="cat-name">📋 错送漏送</span><span class="cat-count"><span class="confidence conf-low"></span>低 · 32 条</span></div><div class="sample-item">送错餐品</div><div class="sample-item">少送了东西</div><div class="sample-item">跟点的不是一样的</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 32 条')">查看全部 32 条 →</div></div>
+  </div>`,
+  `<div class="category-grid">
+    <div class="category-card"><div class="cat-header"><span class="cat-name">🍽 菜品更新</span><span class="cat-count"><span class="confidence conf-high"></span>高 · 72 条</span></div><div class="sample-item">菜品更新太慢</div><div class="sample-item">每天都是这些菜</div><div class="sample-item">希望能换换花样</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 72 条')">查看全部 72 条 →</div></div>
+    <div class="category-card"><div class="cat-header"><span class="cat-name">💰 价格偏高</span><span class="cat-count"><span class="confidence conf-high"></span>高 · 66 条</span></div><div class="sample-item">食堂价格太贵了</div><div class="sample-item">比外卖还贵</div><div class="sample-item">希望降价</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 66 条')">查看全部 66 条 →</div></div>
+    <div class="category-card"><div class="cat-header"><span class="cat-name">⏰ 营业时间</span><span class="cat-count"><span class="confidence conf-mid"></span>中 · 44 条</span></div><div class="sample-item">去晚了没饭</div><div class="sample-item">晚上关门太早</div><div class="sample-item">希望延长营业时间</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 44 条')">查看全部 44 条 →</div></div>
+    <div class="category-card"><div class="cat-header"><span class="cat-name">🧹 环境卫生</span><span class="cat-count"><span class="confidence conf-low"></span>低 · 28 条</span></div><div class="sample-item">食堂卫生一般</div><div class="sample-item">桌椅不干净</div><div class="sample-item">有些地方有异味</div><div class="sample-item" style="color:#059669;font-size:11px;cursor:pointer" onclick="t('展开全部 28 条')">查看全部 28 条 →</div></div>
+  </div>`
+];
+let qi = 0;
+function switchQ(idx) {
+  qi = idx;
+  document.getElementById('qContent').innerHTML = qData[idx];
+  const tags = document.querySelectorAll('#pp-classify .tag');
+  tags.forEach((t, i) => { t.className = i === idx ? 'tag tag-green' : 'tag tag-blue'; });
+}
+</script>
+
+</body>
+</html>
